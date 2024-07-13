@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ferferstore.com/sitemap-index.xml
+Sitemap: https://ferferstore.com/sitemap-index-1.xml
+Sitemap: https://ferferstore.com/sitemap.xml
