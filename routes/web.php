@@ -35,6 +35,14 @@ Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name(
 
 Route::get('/', [CustomAuthController::class, 'RedirectToLogin']);
 
+<<<<<<< HEAD
+=======
+Route::middleware('auth')->group(function () {
+Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
+
+Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
+
+>>>>>>> 47cf7aaba4e85b4fa4bd62068d90ba9976f40637
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
 Route::get('dashboard',[DashBoardController::class, 'index']);
@@ -160,6 +168,7 @@ Route::post('4kplayer-contact-details',[FourKPlayerController::class, 'storekpla
 Route::get('4kplayer-update-version',[FourKPlayerController::class, 'get4kplayerVersion']);
 
 Route::post('4kplayer-update_versions',[FourKPlayerController::class, 'update_4kplayer_version_store']);
+<<<<<<< HEAD
 
 
 
@@ -174,3 +183,6 @@ Route::post('cr-contact-details',[CRKPlayerController::class, 'storekplayerConta
 Route::get('cr-update-version',[CRKPlayerController::class, 'get4kplayerVersion']);
 
 Route::post('cr-update_versions',[CRKPlayerController::class, 'update_4kplayer_version_store']);
+=======
+});
+>>>>>>> 47cf7aaba4e85b4fa4bd62068d90ba9976f40637

@@ -42,12 +42,17 @@ class VersionController extends Controller
    }
    
    	public function update_version_store(Request $request){
-  
-    $version = Version::where($request->id)->update([
-          'version'       => $request->input('version'),
-          'description'   => $request->input('description'),
-          'file'         => $request->file('file')->store('docs'),
-      ]);
+      $validated = $this->validateVersionPayload($request);
+      $attributes = [
+          'version' => $validated['version'] ?? "",
+          'description' => $validated['description'] ?? "",
+      ];
+
+      if ($request->hasFile('file')) {
+          $attributes['file'] = $request->file('file')->store('docs');
+      }
+
+      $this->updateRequestedOrFirst(Version::class, $request, $attributes);
       return redirect('/update-version')->with('message','Version Update Successfully');
         
 	}
@@ -91,18 +96,20 @@ class VersionController extends Controller
 
     function storeSubAdmin(Request $request)
     {   
-        $DomainUrl = DomainUrl::where($request->id)->update([
-            'url'=>$request->input('url'),
+        $validated = $this->validateDomainPayload($request);
+        $this->updateRequestedOrFirst(DomainUrl::class, $request, [
+            'url' => $validated['url'] ?? "",
         ]);
         return redirect('/add-domain-url');       
     }
 
     function storeContact(Request $request)
     {   
-        $ContactDetail = ContactDetail::where($request->id)->update([
-            'email'=>$request->input('email'),
-            'phone'=>$request->input('phone'),
-            'info'=>$request->input('info'),
+        $validated = $this->validateContactPayload($request);
+        $this->updateRequestedOrFirst(ContactDetail::class, $request, [
+            'email' => $validated['email'] ?? "",
+            'phone' => $validated['phone'] ?? "",
+            'info' => $validated['info'] ?? "",
         ]);
         return redirect('/contact-detail');       
     }

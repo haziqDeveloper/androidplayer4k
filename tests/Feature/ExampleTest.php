@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
@@ -16,6 +15,23 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
+        $response->assertRedirect('login');
+    }
+
+    public function test_guest_cannot_open_admin_pages()
+    {
+        $this->get('/add-domain-url')->assertRedirect('/login');
+    }
+
+    public function test_guest_cannot_submit_admin_updates()
+    {
+        $this->post('/add-domain-urls', [
+            'url' => 'https://example.com',
+        ])->assertRedirect('/login');
+    }
+
+    public function test_guest_cannot_self_register()
+    {
+        $this->get('/registration')->assertRedirect('/login');
     }
 }

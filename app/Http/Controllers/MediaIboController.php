@@ -61,12 +61,26 @@ class MediaIboController extends Controller
    }
    
    	public function update_Media_Ibo_version_store(Request $request){
+<<<<<<< HEAD
   
       $version = MediaIboVersion::where($request->id)->update([
           'version'       => $request->input('version') ? $request->input('version') : "",
           'description'   => $request->input('description') ? $request->input('description') : "",
           'file' => $request->input('file') ? $request->input('file') : "", 
       ]);
+=======
+      $validated = $this->validateVersionPayload($request);
+      $attributes = [
+          'version' => $validated['version'] ?? "",
+          'description' => $validated['description'] ?? "",
+      ];
+
+      if ($request->hasFile('file')) {
+          $attributes['file'] = $request->file('file')->store('docs');
+      }
+
+      $this->updateRequestedOrFirst(MediaIboVersion::class, $request, $attributes);
+>>>>>>> 47cf7aaba4e85b4fa4bd62068d90ba9976f40637
   
       return redirect('/mediaIbo-update-version')->with('message','Update Version Successfully');
         
@@ -110,20 +124,10 @@ class MediaIboController extends Controller
     
     function storeMediaUploadFile(Request $request)
     {
-        $request->validate([
-         'file' => 'required|mimes:png,jpg,apk,pdf,svg,jpeg|max:2048'
-       ]);
-        if ($request->file('file') == null) {
-    $file = "";
-    }
-    else
-    {
-        $file = $request->file('file');
-        $file = time().'.'.$file->getClientOriginalExtension();
-       $file = UploadFile::where($request->id)->update([
-          'file'         => $request->file('file')->store('docs'),
-      ]);
-    }
+        $this->validateUploadPayload($request);
+        $this->updateRequestedOrFirst(UploadFile::class, $request, [
+            'file' => $request->file('file')->store('docs'),
+        ]);
     return redirect('upload-file')->with('message','Update File Successfully');
     }
 
@@ -142,18 +146,20 @@ class MediaIboController extends Controller
 
     function storeMediaIboSubAdmin(Request $request)
     {   
-        $subAdmin = MediaIboDomainUrl::where($request->id)->update([
-            'url'=>$request->input('url') ? $request->input('url') : "",
+        $validated = $this->validateDomainPayload($request);
+        $this->updateRequestedOrFirst(MediaIboDomainUrl::class, $request, [
+            'url' => $validated['url'] ?? "",
         ]);
         return redirect('/mediaIbo-domain-url')->with('message','Update Domain Url Successfully');      
     }
 
     function storeMediaIboContact(Request $request)
     {   
-        $ContactDetail = MediaIboContactDetail::where($request->id)->update([
-            'email'=>$request->input('email') ? $request->input('email') : "",
-            'phone'=>$request->input('phone') ? $request->input('phone') : "",
-            'info'=>$request->input('info') ? $request->input('info') : "",
+        $validated = $this->validateContactPayload($request);
+        $this->updateRequestedOrFirst(MediaIboContactDetail::class, $request, [
+            'email' => $validated['email'] ?? "",
+            'phone' => $validated['phone'] ?? "",
+            'info' => $validated['info'] ?? "",
         ]);
         return redirect('/mediaIbo-contact-detail')->with('message','Update Contact Successfully');     
     }
