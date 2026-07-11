@@ -5,6 +5,8 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
+        "ext-dom": "*",
+        "ext-pdo_mysql": "*",
         "php": "^8.4",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^12.61.1",
