@@ -30,52 +30,52 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('domain_Url',[SubAdminController::class, 'apiSubAdmin']);
 
-Route::get('contact_bbb_detail',[SubAdminController::class, 'apiSubContact']);
+Route::get('contact_detail',[SubAdminController::class, 'apiSubContact']);
 
-Route::get('apk/ver_bbb_sion/{version}',[SubAdminController::class, 'apiApkVersion']);
+Route::get('apk/version/{version}',[SubAdminController::class, 'apiApkVersion']);
 
 
 Route::get('ibox/domain_Url',[VersionController::class, 'apiSubAdmin']);
 
-Route::get('ibox/contact_bbb_detail',[VersionController::class, 'apiSubContact']);
+Route::get('ibox/contact_detail',[VersionController::class, 'apiSubContact']);
 
-Route::get('ibox/apk/ver_bbb_sion/{version}',[VersionController::class, 'apiApkVersions']);
+Route::get('ibox/apk/version/{version}',[VersionController::class, 'apiApkVersions']);
 
 
 Route::get('iboActiveCode/domain_Url',[IboController::class, 'apiIboSubAdmin']);
 
-Route::get('iboActiveCode/contact_bbb_detail',[IboController::class, 'apiIboSubContact']);
+Route::get('iboActiveCode/contact_detail',[IboController::class, 'apiIboSubContact']);
 
-Route::get('iboActiveCode/apk/ver_bbb_sion/{version}',[IboController::class, 'apiIboApkVersion']);
+Route::get('iboActiveCode/apk/version/{version}',[IboController::class, 'apiIboApkVersion']);
 
 
 
 Route::get('mediaIbo/domain_Url',[MediaIboController::class, 'apiMediaIboSubAdmin']);
-Route::get('mediaIbo/contact_bbb_detail',[MediaIboController::class, 'apiMediaIboSubContact']);
-Route::get('media/ibo/apk/ver_bbb_sion/{version}',[MediaIboController::class, 'apiMediaIboApkVersion']);
-Route::get('ibo4k/apk/ver_bbb_sion/{version}',[MediaIboController::class, 'apiMediaIboFourkApkVersion']);
+Route::get('mediaIbo/contact_detail',[MediaIboController::class, 'apiMediaIboSubContact']);
+Route::get('media/ibo/apk/version/{version}',[MediaIboController::class, 'apiMediaIboApkVersion']);
+Route::get('ibo4k/apk/version/{version}',[MediaIboController::class, 'apiMediaIboFourkApkVersion']);
 
 
 Route::get('bobplayer/domain_Url',[bobPlayerController::class, 'apiBobPlayerSubAdmin']);
-Route::get('bobplayer/contact_bbb_detail',[bobPlayerController::class, 'apiBobPlayerSubContact']);
-Route::get('bobplayer/apk/ver_bbb_sion/{version}',[bobPlayerController::class, 'apiBobPlayerApkVersion']);
+Route::get('bobplayer/contact_detail',[bobPlayerController::class, 'apiBobPlayerSubContact']);
+Route::get('bobplayer/apk/version/{version}',[bobPlayerController::class, 'apiBobPlayerApkVersion']);
 
 
 Route::get('IboTvPro/domain_Url',[IboTvProController::class, 'apiIboTvProSubAdmin']);
-Route::get('IboTvPro/contact_bbb__detail',[IboTvProController::class, 'apiIboTvProSubContact']);
-Route::get('IboTvPro/apk/ver_bbb_sion/{version}',[IboTvProController::class, 'apiIboTvProApkVersion']);
+Route::get('IboTvPro/contact_detail',[IboTvProController::class, 'apiIboTvProSubContact']);
+Route::get('IboTvPro/apk/version/{version}',[IboTvProController::class, 'apiIboTvProApkVersion']);
 
 
 
 Route::get('Iboss/domain_Url',[IbossController::class, 'apiIbossSubAdmin']);
-Route::get('Iboss/contact_bbb_detail',[IbossController::class, 'apiIbossSubContact']);
-Route::get('Iboss/apk/ver_bbb_sion/{version}',[IbossController::class, 'apiIbossApkVersion']);
+Route::get('Iboss/contact_detail',[IbossController::class, 'apiIbossSubContact']);
+Route::get('Iboss/apk/version/{version}',[IbossController::class, 'apiIbossApkVersion']);
 
 
 Route::get('4kplayer/domain_Url',[FourKPlayerController::class, 'apifourkPlayerSubAdmin']);
-Route::get('4kplayer/contact_bbb__detail',[FourKPlayerController::class, 'fourkPlayerSubContact']);
-Route::get('4kplayer/apk/ver_bbb_sion/{version}',[FourKPlayerController::class, 'apifourkPlayerApkVersion']);
+Route::get('4kplayer/contact_detail',[FourKPlayerController::class, 'fourkPlayerSubContact']);
+Route::get('4kplayer/apk/version/{version}',[FourKPlayerController::class, 'apifourkPlayerApkVersion']);
 
 Route::get('crplayer/domain_Url',[CRKPlayerController::class, 'apifourkPlayerSubAdmin']);
-Route::get('crplayer/contact_bbb_detail',[CRKPlayerController::class, 'fourkPlayerSubContact']);
-Route::get('crplayer/apk/ver_bbb_sion/{version}',[CRKPlayerController::class, 'apifourkPlayerApkVersion']);
+Route::get('crplayer/contact_detail',[CRKPlayerController::class, 'fourkPlayerSubContact']);
+Route::get('crplayer/apk/version/{version}',[CRKPlayerController::class, 'apifourkPlayerApkVersion']);
