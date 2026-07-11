@@ -44,20 +44,17 @@ class FourKPlayerController extends Controller
    }
    
    	public function update_4kplayer_version_store(Request $request){
-  
-    if ($request->file('file') == null) {
-    $file = "";
-    }
-    else
-    {
-       $version = FourKPlayerVersion::where($request->id)->update([
-          'file'         => $request->file('file')->store('docs'),
-      ]);
-    }
-      $version = FourKPlayerVersion::where($request->id)->update([
-          'version'       => $request->input('version') ? $request->input('version') : "",
-          'description'   => $request->input('description') ? $request->input('description') : "",
-      ]);
+      $validated = $this->validateVersionPayload($request);
+      $attributes = [
+          'version' => $validated['version'] ?? "",
+          'description' => $validated['description'] ?? "",
+      ];
+
+      if ($request->hasFile('file')) {
+          $attributes['file'] = $request->file('file')->store('docs');
+      }
+
+      $this->updateRequestedOrFirst(FourKPlayerVersion::class, $request, $attributes);
   
       return redirect('/4kplayer-update-version')->with('message','Update Version Successfully');
         
@@ -100,20 +97,10 @@ class FourKPlayerController extends Controller
     
     function storeMediaUploadFile(Request $request)
     {
-        $request->validate([
-         'file' => 'required|mimes:png,jpg,apk,pdf,svg,jpeg|max:2048'
-       ]);
-        if ($request->file('file') == null) {
-    $file = "";
-    }
-    else
-    {
-        $file = $request->file('file');
-        $file = time().'.'.$file->getClientOriginalExtension();
-       $file = UploadFile::where($request->id)->update([
-          'file'         => $request->file('file')->store('docs'),
-      ]);
-    }
+        $this->validateUploadPayload($request);
+        $this->updateRequestedOrFirst(UploadFile::class, $request, [
+            'file' => $request->file('file')->store('docs'),
+        ]);
     return redirect('upload-file')->with('message','Update File Successfully');
     }
 
@@ -132,18 +119,20 @@ class FourKPlayerController extends Controller
 
     function store4kplayerSubAdmin(Request $request)
     {   
-        $subAdmin = FourKPlayerDomainUrl::where($request->id)->update([
-            'url'=>$request->input('url') ? $request->input('url') : "",
+        $validated = $this->validateDomainPayload($request);
+        $this->updateRequestedOrFirst(FourKPlayerDomainUrl::class, $request, [
+            'url' => $validated['url'] ?? "",
         ]);
         return redirect('/4kplayer-domain-url')->with('message','Update Domain Url Successfully');      
     }
 
     function storekplayerContact(Request $request)
     {   
-        $ContactDetail = FourKPlayerContactDetail::where($request->id)->update([
-            'email'=>$request->input('email') ? $request->input('email') : "",
-            'phone'=>$request->input('phone') ? $request->input('phone') : "",
-            'info'=>$request->input('info') ? $request->input('info') : "",
+        $validated = $this->validateContactPayload($request);
+        $this->updateRequestedOrFirst(FourKPlayerContactDetail::class, $request, [
+            'email' => $validated['email'] ?? "",
+            'phone' => $validated['phone'] ?? "",
+            'info' => $validated['info'] ?? "",
         ]);
         return redirect('/4kplayer-contact-detail')->with('message','Update Contact Successfully');     
     }

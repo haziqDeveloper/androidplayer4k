@@ -43,22 +43,17 @@ class SubAdminController extends Controller
    }
    
    	public function update_version_store(Request $request){
-  
-  
-     if ($request->file('file') == null) {
-    $file = "";
-    }
-    else
-    {
-      $version = Version::where($request->id)->update([
-          'file'         => $request->file('file')->store('docs'),
-      ]);
-    }
+      $validated = $this->validateVersionPayload($request);
+      $attributes = [
+          'version' => $validated['version'] ?? "",
+          'description' => $validated['description'] ?? "",
+      ];
 
-    $version = Version::where($request->id)->update([
-          'version'       => $request->input('version'),
-          'description'   => $request->input('description'),
-      ]);
+      if ($request->hasFile('file')) {
+          $attributes['file'] = $request->file('file')->store('docs');
+      }
+
+      $this->updateRequestedOrFirst(Version::class, $request, $attributes);
       return redirect('/update-version')->with('message','Update Version Successfully');
         
 	}
@@ -102,18 +97,20 @@ class SubAdminController extends Controller
 
     function storeSubAdmin(Request $request)
     {   
-        $subAdmin = SubAdmin::where($request->id)->update([
-            'url' => $request->input('url') ? $request->input('url'): "",
+        $validated = $this->validateDomainPayload($request);
+        $this->updateRequestedOrFirst(SubAdmin::class, $request, [
+            'url' => $validated['url'] ?? "",
         ]);
         return redirect('/add-domain-url')->with('message','Update Domain Url Successfully');
     }
 
     function storeContact(Request $request)
     {   
-        $contact = Contact::where($request->id)->update([
-            'email'=>$request->input('email') ? $request->input('email') : "",
-            'phone'=>$request->input('phone') ? $request->input('phone') : "",
-            'info'=>$request->input('info') ? $request->input('info') : "",
+        $validated = $this->validateContactPayload($request);
+        $this->updateRequestedOrFirst(Contact::class, $request, [
+            'email' => $validated['email'] ?? "",
+            'phone' => $validated['phone'] ?? "",
+            'info' => $validated['info'] ?? "",
         ]);
         return redirect('/contact-detail')->with('message','Update Contact Successfully');      
     }

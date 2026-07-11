@@ -33,6 +33,7 @@ Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name(
 
 Route::get('/', [CustomAuthController::class, 'RedirectToLogin']);
 
+Route::middleware('auth')->group(function () {
 Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
 
 Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
@@ -148,3 +149,4 @@ Route::post('4kplayer-contact-details',[FourKPlayerController::class, 'storekpla
 Route::get('4kplayer-update-version',[FourKPlayerController::class, 'get4kplayerVersion']);
 
 Route::post('4kplayer-update_versions',[FourKPlayerController::class, 'update_4kplayer_version_store']);
+});

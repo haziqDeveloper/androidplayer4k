@@ -43,20 +43,17 @@ class IboxController extends Controller
    }
    
    	public function update_version_store(Request $request){
-  
-    if ($request->file('file') == null) {
-    $file = "";
-    }
-    else
-    {
-       $version = IboxVersion::where($request->id)->update([
-          'file'         => $request->file('file')->store('docs'),
-      ]);
-    }
-      $version = IboxVersion::where($request->id)->update([
-          'version'       => $request->input('version'),
-          'description'   => $request->input('description'),
-      ]);
+      $validated = $this->validateVersionPayload($request);
+      $attributes = [
+          'version' => $validated['version'] ?? "",
+          'description' => $validated['description'] ?? "",
+      ];
+
+      if ($request->hasFile('file')) {
+          $attributes['file'] = $request->file('file')->store('docs');
+      }
+
+      $this->updateRequestedOrFirst(IboxVersion::class, $request, $attributes);
   
       return redirect('/ibox-update-version')->with('message','Update Version Successfully');
         
@@ -101,18 +98,20 @@ class IboxController extends Controller
 
     function storeSubAdmin(Request $request)
     {   
-        $subAdmin = DomainUrl::where($request->id)->update([
-            'url'=>$request->input('url'),
+        $validated = $this->validateDomainPayload($request);
+        $this->updateRequestedOrFirst(DomainUrl::class, $request, [
+            'url' => $validated['url'] ?? "",
         ]);
         return redirect('/ibox-domain-url')->with('message','Update Domain Url Successfully');      
     }
 
     function storeContact(Request $request)
     {   
-        $ContactDetail = ContactDetail::where($request->id)->update([
-            'email'=>$request->input('email'),
-            'phone'=>$request->input('phone'),
-            'info'=>$request->input('info'),
+        $validated = $this->validateContactPayload($request);
+        $this->updateRequestedOrFirst(ContactDetail::class, $request, [
+            'email' => $validated['email'] ?? "",
+            'phone' => $validated['phone'] ?? "",
+            'info' => $validated['info'] ?? "",
         ]);
         return redirect('/ibox-contact-detail')->with('message','Update Contact Successfully');     
     }

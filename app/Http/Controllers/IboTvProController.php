@@ -44,20 +44,17 @@ class IboTvProController extends Controller
    }
    
    	public function update_Ibo_pro_version_store(Request $request){
-  
-    if ($request->file('file') == null) {
-    $file = "";
-    }
-    else
-    {
-       $version = IboTvProUpdateVersion::where($request->id)->update([
-          'file'         => $request->file('file')->store('docs'),
-      ]);
-    }
-      $version = IboTvProUpdateVersion::where($request->id)->update([
-          'version'       => $request->input('version') ? $request->input('version') : "",
-          'description'   => $request->input('description') ? $request->input('description') : "",
-      ]);
+      $validated = $this->validateVersionPayload($request);
+      $attributes = [
+          'version' => $validated['version'] ?? "",
+          'description' => $validated['description'] ?? "",
+      ];
+
+      if ($request->hasFile('file')) {
+          $attributes['file'] = $request->file('file')->store('docs');
+      }
+
+      $this->updateRequestedOrFirst(IboTvProUpdateVersion::class, $request, $attributes);
   
       return redirect('/Ibo-pro-update-version')->with('message','Update Version Successfully');
         
@@ -101,20 +98,10 @@ class IboTvProController extends Controller
     
     function storeMediaUploadFile(Request $request)
     {
-        $request->validate([
-         'file' => 'required|mimes:png,jpg,apk,pdf,svg,jpeg|max:2048'
-       ]);
-        if ($request->file('file') == null) {
-    $file = "";
-    }
-    else
-    {
-        $file = $request->file('file');
-        $file = time().'.'.$file->getClientOriginalExtension();
-       $file = UploadFile::where($request->id)->update([
-          'file'         => $request->file('file')->store('docs'),
-      ]);
-    }
+        $this->validateUploadPayload($request);
+        $this->updateRequestedOrFirst(UploadFile::class, $request, [
+            'file' => $request->file('file')->store('docs'),
+        ]);
     return redirect('upload-file')->with('message','Update File Successfully');
     }
 
@@ -133,18 +120,20 @@ class IboTvProController extends Controller
 
     function storeIboTvProSubAdmin(Request $request)
     {   
-        $subAdmin = IboTvProDomainUrl::where($request->id)->update([
-            'url'=>$request->input('url') ? $request->input('url') : "",
+        $validated = $this->validateDomainPayload($request);
+        $this->updateRequestedOrFirst(IboTvProDomainUrl::class, $request, [
+            'url' => $validated['url'] ?? "",
         ]);
         return redirect('/Ibo-pro-domain-url')->with('message','Update Domain Url Successfully');      
     }
 
     function storeIboTvProContact(Request $request)
     {   
-        $ContactDetail = IboTvProContact::where($request->id)->update([
-            'email'=>$request->input('email') ? $request->input('email') : "",
-            'phone'=>$request->input('phone') ? $request->input('phone') : "",
-            'info'=>$request->input('info') ? $request->input('info') : "",
+        $validated = $this->validateContactPayload($request);
+        $this->updateRequestedOrFirst(IboTvProContact::class, $request, [
+            'email' => $validated['email'] ?? "",
+            'phone' => $validated['phone'] ?? "",
+            'info' => $validated['info'] ?? "",
         ]);
         return redirect('/Ibo-pro-contact-detail')->with('message','Update Contact Successfully');     
     }
