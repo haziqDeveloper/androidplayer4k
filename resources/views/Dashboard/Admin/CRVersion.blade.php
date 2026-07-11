@@ -8,10 +8,10 @@
 <div class="col-lg-12">
                         <div class="card card-android">
                             <div class="card-body">
-                                <h4 class="card-title">MediaIbo Update Version</h4>
+                                <h4 class="card-title">CR7Player Update Version</h4>
                                 <br/>
                                 <div class="basic-form">
-           <form method="post" action="{{ url('/mediaIbo-update_versions') }}"  enctype="multipart/form-data">
+           <form method="post" action="{{ url('/cr-update_versions') }}"  enctype="multipart/form-data">
                                   {{ csrf_field() }}
                                     @foreach ($versions as $vers)
                                         <div class="form-group row">
@@ -33,7 +33,7 @@
                                                 <label class="col-form-label col-sm-2 pt-0">APK File</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-group">
-                                                    <input type="text" name="file" class="form-control" value="{{ $vers->file }}">
+                                                    <input type="file" name="file" class="form-control-file">
                                                     </div>
                                                 </div>
                                             </div>

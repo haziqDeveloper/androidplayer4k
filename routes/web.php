@@ -10,6 +10,8 @@ use App\Http\Controllers\MediaIboController;
 use App\Http\Controllers\IbossController;
 use App\Http\Controllers\IboTvProController;
 use App\Http\Controllers\FourKPlayerController;
+use App\Http\Controllers\bobPlayerController;
+use App\Http\Controllers\CRKPlayerController;
 
 
 /*
@@ -33,11 +35,14 @@ Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name(
 
 Route::get('/', [CustomAuthController::class, 'RedirectToLogin']);
 
+<<<<<<< HEAD
+=======
 Route::middleware('auth')->group(function () {
 Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
 
 Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
 
+>>>>>>> 47cf7aaba4e85b4fa4bd62068d90ba9976f40637
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
 Route::get('dashboard',[DashBoardController::class, 'index']);
@@ -109,6 +114,20 @@ Route::get('mediaIbo-update-version',[MediaIboController::class, 'getMediaIboVer
 Route::post('mediaIbo-update_versions',[MediaIboController::class, 'update_Media_Ibo_version_store']);
 
 
+
+Route::get('bobplayer-domain-url',[bobPlayerController::class, 'getBobPlayerSubAdmin']);
+
+Route::post('bobplayer-domain-urls',[bobPlayerController::class, 'storeBobPlayerSubAdmin']);
+
+Route::get('bobplayer-contact-detail',[bobPlayerController::class, 'getBobPlayerContact']);
+
+Route::post('bobplayer-contact-details',[bobPlayerController::class, 'storeBobPlayerContact']);
+
+Route::get('bobplayer-update-version',[bobPlayerController::class, 'getBobPlayerVersion']);
+
+Route::post('bobplayer-update_versions',[bobPlayerController::class, 'update_bob_player_version_store']);
+
+
 Route::get('Ibo-pro-domain-url',[IboTvProController::class, 'getIboTvProSubAdmin']);
 
 Route::post('Ibo-pro-domain-urls',[IboTvProController::class, 'storeIboTvProSubAdmin']);
@@ -149,4 +168,21 @@ Route::post('4kplayer-contact-details',[FourKPlayerController::class, 'storekpla
 Route::get('4kplayer-update-version',[FourKPlayerController::class, 'get4kplayerVersion']);
 
 Route::post('4kplayer-update_versions',[FourKPlayerController::class, 'update_4kplayer_version_store']);
+<<<<<<< HEAD
+
+
+
+Route::get('cr-domain-url',[CRKPlayerController::class, 'getkplayerSubAdmin']);
+
+Route::post('cr-domain-urls',[CRKPlayerController::class, 'store4kplayerSubAdmin']);
+
+Route::get('cr-contact-detail',[CRKPlayerController::class, 'get4kplayerContact']);
+
+Route::post('cr-contact-details',[CRKPlayerController::class, 'storekplayerContact']);
+
+Route::get('cr-update-version',[CRKPlayerController::class, 'get4kplayerVersion']);
+
+Route::post('cr-update_versions',[CRKPlayerController::class, 'update_4kplayer_version_store']);
+=======
 });
+>>>>>>> 47cf7aaba4e85b4fa4bd62068d90ba9976f40637

@@ -60,7 +60,6 @@ class SubAdminController extends Controller
 
     function getSubAdmin()
     {
-
         $subAdmin = SubAdmin::all();
         if(Auth::check()) {
             return view('Dashboard.Admin.AddSubAdmin', compact('subAdmin'));    

@@ -8,10 +8,10 @@
 <div class="col-lg-12">
                         <div class="card card-android">
                             <div class="card-body">
-                                <h4 class="card-title">MediaIbo Update Version</h4>
+                                <h4 class="card-title">Bob Player Update Version</h4>
                                 <br/>
                                 <div class="basic-form">
-           <form method="post" action="{{ url('/mediaIbo-update_versions') }}"  enctype="multipart/form-data">
+           <form method="post" action="{{ url('/bobplayer-update_versions') }}"  enctype="multipart/form-data">
                                   {{ csrf_field() }}
                                     @foreach ($versions as $vers)
                                         <div class="form-group row">
