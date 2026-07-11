@@ -61,14 +61,6 @@ class MediaIboController extends Controller
    }
    
    	public function update_Media_Ibo_version_store(Request $request){
-<<<<<<< HEAD
-  
-      $version = MediaIboVersion::where($request->id)->update([
-          'version'       => $request->input('version') ? $request->input('version') : "",
-          'description'   => $request->input('description') ? $request->input('description') : "",
-          'file' => $request->input('file') ? $request->input('file') : "", 
-      ]);
-=======
       $validated = $this->validateVersionPayload($request);
       $attributes = [
           'version' => $validated['version'] ?? "",
@@ -80,7 +72,6 @@ class MediaIboController extends Controller
       }
 
       $this->updateRequestedOrFirst(MediaIboVersion::class, $request, $attributes);
->>>>>>> 47cf7aaba4e85b4fa4bd62068d90ba9976f40637
   
       return redirect('/mediaIbo-update-version')->with('message','Update Version Successfully');
         
