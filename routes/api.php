@@ -52,7 +52,7 @@ Route::get('iboActiveCode/apk/version/{version}',[IboController::class, 'apiIboA
 
 Route::get('mediaIbo/domain_Url',[MediaIboController::class, 'apiMediaIboSubAdmin']);
 Route::get('mediaIbo/contact_detail',[MediaIboController::class, 'apiMediaIboSubContact']);
-Route::get('media/ibo/apk/version/{version}',[MediaIboController::class, 'apiMediaIboApkVersion']);
+Route::get('mediaIbo/apk/version/{version}',[MediaIboController::class, 'apiMediaIboApkVersion']);
 Route::get('ibo4k/apk/version/{version}',[MediaIboController::class, 'apiMediaIboFourkApkVersion']);
 
 
