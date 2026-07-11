@@ -177,6 +177,30 @@
                 </li>
               </ul>
             </li>
+
+            <li class="menu-item active">
+              <a href="javascript:void(0);" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                <div data-i18n="Misc">Bob Player</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item active">
+                  <a href="{{url('bobplayer-domain-url')}}" class="menu-link">
+                    <div data-i18n="Error">Domain Url</div>
+                  </a>
+                </li>
+                <li class="menu-item active">
+                  <a href="{{('bobplayer-contact-detail')}}" class="menu-link">
+                    <div data-i18n="Under Maintenance">Contact Detail</div>
+                  </a>
+                </li>
+                <li class="menu-item active">
+                  <a href="{{('bobplayer-update-version')}}" class="menu-link">
+                    <div data-i18n="Under Maintenance">Update Version</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
             
            
            <li class="menu-item active">
@@ -246,6 +270,30 @@
                 </li>
                 <li class="menu-item active">
                   <a href="{{('4kplayer-update-version')}}" class="menu-link">
+                    <div data-i18n="Under Maintenance">Update Version</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="menu-item active">
+              <a href="javascript:void(0);" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                <div data-i18n="Misc">CR7 Player</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item active">
+                  <a href="{{url('cr-domain-url')}}" class="menu-link">
+                    <div data-i18n="Error">Domain Url</div>
+                  </a>
+                </li>
+                <li class="menu-item active">
+                  <a href="{{('cr-contact-detail')}}" class="menu-link">
+                    <div data-i18n="Under Maintenance">Contact Detail</div>
+                  </a>
+                </li>
+                <li class="menu-item active">
+                  <a href="{{('cr-update-version')}}" class="menu-link">
                     <div data-i18n="Under Maintenance">Update Version</div>
                   </a>
                 </li>

@@ -7,6 +7,7 @@ use App\Models\MediaIboDomainUrl;
 use App\Models\MediaIboContactDetail;
 use App\Models\MediaIboVersion;
 use App\Models\UploadFile;
+use App\Models\MediaIboFourVersion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -42,21 +43,29 @@ class MediaIboController extends Controller
         return response()->json($ver);
      }
    }
+
+
+    public function apiMediaIboFourkApkVersion($version)
+   {
+     $ver = MediaIboFourVersion::first();
+     
+     if($ver->version > $version)
+     {
+       return response()->json($ver);
+     }
+      else
+     {
+        $ver = [];
+        return response()->json($ver);
+     }
+   }
    
    	public function update_Media_Ibo_version_store(Request $request){
   
-    if ($request->file('file') == null) {
-    $file = "";
-    }
-    else
-    {
-       $version = MediaIboVersion::where($request->id)->update([
-          'file'         => $request->file('file')->store('docs'),
-      ]);
-    }
       $version = MediaIboVersion::where($request->id)->update([
           'version'       => $request->input('version') ? $request->input('version') : "",
           'description'   => $request->input('description') ? $request->input('description') : "",
+          'file' => $request->input('file') ? $request->input('file') : "", 
       ]);
   
       return redirect('/mediaIbo-update-version')->with('message','Update Version Successfully');

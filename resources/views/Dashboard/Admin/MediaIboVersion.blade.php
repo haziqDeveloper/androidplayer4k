@@ -33,7 +33,7 @@
                                                 <label class="col-form-label col-sm-2 pt-0">APK File</label>
                                                 <div class="col-sm-10">
                                                     <div class="form-group">
-                                                    <input type="file" name="file" class="form-control-file">
+                                                    <input type="text" name="file" class="form-control" value="{{ $vers->file }}">
                                                     </div>
                                                 </div>
                                             </div>
